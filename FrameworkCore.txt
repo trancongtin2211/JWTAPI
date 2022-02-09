@@ -1,0 +1,9 @@
+//Entity framework
+https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/
+https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Design/
+https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/
+https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.EntityFrameworkCore/
+https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/
+
+//JWT Token
+https://jwt.io/
