@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus TUF\\Desktop\\tin1\\Train\\Train.csproj": {}
+    "C:\\Users\\Asus TUF\\Desktop\\JWTAPI\\Train.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus TUF\\Desktop\\tin1\\Train\\Train.csproj": {
+    "C:\\Users\\Asus TUF\\Desktop\\JWTAPI\\Train.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus TUF\\Desktop\\tin1\\Train\\Train.csproj",
+        "projectUniqueName": "C:\\Users\\Asus TUF\\Desktop\\JWTAPI\\Train.csproj",
         "projectName": "Train",
-        "projectPath": "C:\\Users\\Asus TUF\\Desktop\\tin1\\Train\\Train.csproj",
+        "projectPath": "C:\\Users\\Asus TUF\\Desktop\\JWTAPI\\Train.csproj",
         "packagesPath": "C:\\Users\\Asus TUF\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus TUF\\Desktop\\tin1\\Train\\obj\\",
+        "outputPath": "C:\\Users\\Asus TUF\\Desktop\\JWTAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Asus TUF\\AppData\\Roaming\\NuGet\\NuGet.Config",

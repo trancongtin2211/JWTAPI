@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KSd6N1glwRzb53moKn1scZ+/itmM6fCJFnR/WIlLkQ10B0xCEyl7dEE5IAm7jeHoVl/hVfBnVLCig3pb5ltPbA==",
+  "dgSpecHash": "xnxAFld/6OImrnyXBzJOIaeK5087LMgiUj5fQV8A+UJXEzZIpl7GakqTV8vclgTV45JJPGJLXWoZj4bxNEUICg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus TUF\\Desktop\\tin1\\Train\\Train.csproj",
+  "projectFilePath": "C:\\Users\\Asus TUF\\Desktop\\JWTAPI\\Train.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus TUF\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Asus TUF\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.13\\microsoft.aspnetcore.authentication.jwtbearer.5.0.13.nupkg.sha512",
