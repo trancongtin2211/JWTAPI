@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Claim.Data.Enties;
-using Models.DTO;
+using Model.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Models.BindingModel;
-using Models;
+using Model.BindingModel;
+using Model;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Enums;
 
 namespace Train.Controllers
 {
@@ -53,35 +54,35 @@ namespace Train.Controllers
         var result = await _userManager.CreateAsync(user,model.Password);
         if(result.Succeeded)
         {
-            return await Task.FromResult("User has been Registered");
+            return await Task.FromResult(new ResponseModel(ResponseCode.OK,"User has been Registered",null));
         }
-        return await Task.FromResult(string.Join(",",result.Errors.Select(x=>x.Description).ToArray()));
+        return await Task.FromResult(new ResponseModel(ResponseCode.Error,"",result.Errors.Select(x=>x.Description).ToArray()));
         }catch(Exception ex){
-            return await Task.FromResult(ex.Message);
+            return await Task.FromResult(new ResponseModel(ResponseCode.Error,ex.Message,null));
         }
     }
 
 
     //Get User
-    
+    [Authorize()]
     [HttpGet("GetAllUser")]
-    [Authorize]
     public async Task<object> GetAllUser()
     {
         try
         {
             var user = _userManager.Users.Select(x=>new UserDTO(x.FullName,x.Email,x.UserName,x.DataCreated));
-            return await Task.FromResult(user);
-        }catch(Exception ex)
+            return await Task.FromResult(new ResponseModel(ResponseCode.OK, "", user));
+        }
+        catch(Exception ex)
         {
-            return await Task.FromResult(ex.Message);
+            return await Task.FromResult(new ResponseModel(ResponseCode.Error, ex.Message, null));
         }
     }
 
 
     //Login
     [HttpPost("Login")]
-    public async Task<object> Login([FromBody] LoginBindingModel model)
+    public async Task<object> Login([FromBody] LoginBindingModel model)                
     {
         try
         {
@@ -94,13 +95,13 @@ namespace Train.Controllers
                 var appUser = await _userManager.FindByEmailAsync(model.Email);
                 var user = new UserDTO(appUser.FullName,appUser.Email,appUser.UserName,appUser.DataCreated);
                 user.Token = GenerateToken(appUser);
-                return await Task.FromResult(user);
+                return await Task.FromResult(new ResponseModel(ResponseCode.OK,"",user));
             }
             }
-            return await Task.FromResult("Invalid Email or Password");
+            return await Task.FromResult(new ResponseModel(ResponseCode.Error,"Invalid Email or Password",null));
         }catch(Exception ex)
         {
-            return await Task.FromResult(ex.Message);
+            return await Task.FromResult(new ResponseModel(ResponseCode.Error,ex.Message,null));
         }
     }
 
