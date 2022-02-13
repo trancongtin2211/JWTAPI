@@ -18,12 +18,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Models;
+using Model;
 
 namespace Train
 {
     public class Startup
     {
+        private readonly string _loginOrigin="_localorigin";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -46,7 +48,7 @@ namespace Train
             services.AddIdentity<AppUser,IdentityRole>(opt=>{}).AddEntityFrameworkStores<AppDBContext>();
             
             // Add Authentication JWT
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,options =>
             {
                     var key = Encoding.ASCII.GetBytes(Configuration["JWTConfig:Key"]);
                     var issuer = Configuration["JWTConfig:Issuer"];
@@ -60,6 +62,14 @@ namespace Train
                         ValidAudience = issuer,
                         ValidIssuer = audience
                     };
+            });
+
+            services.AddCors(opt=>{
+                opt.AddPolicy(_loginOrigin,builder=>{
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                });
             });
 
             services.AddControllers();
@@ -81,6 +91,8 @@ namespace Train
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(_loginOrigin);
 
             app.UseRouting();
             
