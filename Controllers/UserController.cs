@@ -70,8 +70,8 @@ namespace Train.Controllers
     {
         try
         {
-            var user = _userManager.Users.Select(x=>new UserDTO(x.FullName,x.Email,x.UserName,x.DataCreated));
-            return await Task.FromResult(new ResponseModel(ResponseCode.OK, "", user));
+            var users = _userManager.Users.Select(x=>new UserDTO(x.FullName,x.Email,x.UserName,x.DataCreated));
+            return await Task.FromResult(new ResponseModel(ResponseCode.OK, "", users));
         }
         catch(Exception ex)
         {

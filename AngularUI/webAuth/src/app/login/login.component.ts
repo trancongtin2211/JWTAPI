@@ -20,15 +20,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(){
+  onSubmit()
+  {
     console.log("on submit")
     let email = this.loginForm.controls["email"].value;
     let password = this.loginForm.controls["password"].value;
-    this.userService.login(email,password).subscribe((data:any)=>{
-
-      if(data.responseCode==1){
-        localStorage.setItem("userInfo",JSON.stringify(data.DataSet));
-        this.router.navigate(['/user-management']);
+    this.userService.login(email,password).subscribe((data:ResponseModel)=>{
+      if(data.responseCode == 1){
+        localStorage.setItem("userInfo",JSON.stringify(data.dataSet));
+        this.router.navigate(["/user-management"]);
       }
       console.log("response",data);
     },error=>{

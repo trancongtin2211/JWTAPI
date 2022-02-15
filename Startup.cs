@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Claim.Data;
 using Claim.Data.Enties;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,12 @@ namespace Train
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Train", Version = "v1" });
+            });
             //...
             services.Configure<JWTConfig>(Configuration.GetSection("JWTConfig"));
 
@@ -48,12 +55,18 @@ namespace Train
             services.AddIdentity<AppUser,IdentityRole>(opt=>{}).AddEntityFrameworkStores<AppDBContext>();
             
             // Add Authentication JWT
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,options =>
+            services.AddAuthentication(x=>
+            {
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
             {
                     var key = Encoding.ASCII.GetBytes(Configuration["JWTConfig:Key"]);
                     var issuer = Configuration["JWTConfig:Issuer"];
                     var audience = Configuration["JWTConfig:Audience"];
-                    options.TokenValidationParameters = new TokenValidationParameters(){
+                    // options.RequireHttpsMetadata = false;
+                    // options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = true,
@@ -71,12 +84,7 @@ namespace Train
                     builder.AllowAnyHeader();
                 });
             });
-
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Train", Version = "v1" });
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,9 +102,9 @@ namespace Train
 
             app.UseCors(_loginOrigin);
 
-            app.UseRouting();
-            
             app.UseAuthentication();
+
+            app.UseRouting();
 
             app.UseAuthorization();
 

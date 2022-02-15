@@ -1,3 +1,5 @@
+import { StringMap } from "@angular/compiler/src/compiler_facade_interface";
+
 export class User{
     public fullName:string="";
     public email:string="";
@@ -8,4 +10,4 @@ export class User{
         this.email=email;
         this.userName=userName;
     }
-}
+}   
