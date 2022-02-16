@@ -1,5 +1,3 @@
-import { StringMap } from "@angular/compiler/src/compiler_facade_interface";
-
 export class User{
     public fullName:string="";
     public email:string="";

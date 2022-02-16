@@ -11,8 +11,8 @@ export class AppComponent {
   constructor(private router:Router){}
   onLogout(){
     localStorage.removeItem("userInfo");
-       
   }
+  
 get isUserlogin()
   {
     const user =localStorage.getItem("userInfo");
