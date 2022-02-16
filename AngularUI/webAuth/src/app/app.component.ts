@@ -13,9 +13,9 @@ export class AppComponent {
     localStorage.removeItem("userInfo");
        
   }
-  isUserlogin()
+get isUserlogin()
   {
     const user =localStorage.getItem("userInfo");
-    return user && user.length>0;
+    return user && user.length > 0;
   }
 }

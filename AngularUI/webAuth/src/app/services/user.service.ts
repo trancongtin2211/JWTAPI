@@ -4,7 +4,7 @@ import { ResponseModel } from '../Models/responseModel';
 import {map} from 'rxjs/operators';
 import { ResponseCode } from '../enums/responseCode';
 import { User } from '../Models/user';
-import { Constants } from '../Helper/constants';
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,23 +39,23 @@ export class UserService {
   //getalluser to user-management
   public getAllUser()
   {
-    let userInfo=JSON.parse(localStorage.getItem("userInfo"));
-    const headers =new HttpHeaders({
-      'Authorization':`Bearer ${userInfo?.token}`
+    let in4 = JSON.parse(localStorage.getItem("userInfo"));
+    const headers = new HttpHeaders({'Authorization':`Bearer ${in4?.token}`
     });
+
     return this.httpClient.get<ResponseModel>(this.baseURL+"GetAllUser",{headers:headers}).pipe(map(res=>{
-      let userList=new Array<User>();
-      if(res.ResponseCode==ResponseCode.OK)
+      let userList = new Array<User>();
+      if(res.responseCode==ResponseCode.OK)
       {
-        if(res.DataSet)
+        
+        if(res.dataSet)
         {
-          res.DataSet.map((x:User)=>{
-            userList.push(new User(x.fullName,x.email,x.userName));
-          })
+            res.dataSet.map((x:User)=>{
+              userList.push(new User(x.fullName,x.email,x.userName));
+            })
         }
       }
       return userList;
     }));
   }
-
 }
